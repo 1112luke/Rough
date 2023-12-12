@@ -25,7 +25,6 @@ export function Form({ settext }) {
           setid(newText);
         }}
       />
-      <TextInput />
       <TextInput
         style={styles.input}
         value={pass}
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 4,
     width: 300,
+    marginTop: 10,
   },
   button: {
     height: 40,

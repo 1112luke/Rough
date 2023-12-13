@@ -1,8 +1,8 @@
 import { Text, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
-import { Pressable } from "react-native";
+import { Goodbutton } from "../../Components/Goodbutton";
 
-export function Form(props) {
+export function Loginform(props) {
   const [id, setid] = useState("");
   const [pass, setpass] = useState("");
 
@@ -46,12 +46,7 @@ export function Form(props) {
           setpass(newText);
         }}
       />
-      <TextInput />
-      <Pressable onPress={handleSignIn} style={styles.button}>
-        <Text style={{ padding: 10, textAlign: "center", color: "lightgray" }}>
-          Sign In
-        </Text>
-      </Pressable>
+      <Goodbutton onpress = {handleSignIn}></Goodbutton>
       <Text style={{ fontSize: 10, color: "grey", marginTop: 5 }}>
         Forgot Password?
       </Text>
@@ -70,12 +65,5 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     width: 300,
     marginTop: 10,
-  },
-  button: {
-    height: 40,
-    backgroundColor: "grey",
-    width: 300,
-    borderRadius: 5,
-    textAlign: "center",
   },
 });

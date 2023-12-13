@@ -2,14 +2,27 @@ import { Text, StyleSheet, TextInput } from "react-native";
 import { useState } from "react";
 import { Pressable } from "react-native";
 
-export function Form({ settext }) {
+export function Form(props) {
   const [id, setid] = useState("");
   const [pass, setpass] = useState("");
 
   function handleSignIn() {
     console.log(id, pass);
-    setid("");
-    setpass("");
+    if(pass == "" && id == ""){
+      props.seterror("both");
+    }
+    else if(id == ""){
+      props.seterror("id");
+    }
+    else if(pass == ""){
+      props.seterror("pass")
+    }
+    
+    else{
+      setid("");
+      setpass("");
+      props.seterror("");
+    };
   }
 
   return (
@@ -25,7 +38,6 @@ export function Form({ settext }) {
           setid(newText);
         }}
       />
-      <TextInput />
       <TextInput
         style={styles.input}
         value={pass}
@@ -57,6 +69,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderRadius: 4,
     width: 300,
+    marginTop: 10,
   },
   button: {
     height: 40,

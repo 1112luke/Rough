@@ -31,7 +31,7 @@ export function Loginform(props) {
         SIGN IN
       </Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, (props.errorid == "both" || props.errorid == "id") && styles.invalid]}
         value={id}
         placeholder="Notre Dame NetID"
         onChangeText={(newText) => {
@@ -39,7 +39,7 @@ export function Loginform(props) {
         }}
       />
       <TextInput
-        style={styles.input}
+        style={[styles.input, (props.errorid == "both" || props.errorid == "pass") && styles.invalid]}
         value={pass}
         placeholder="Password"
         onChangeText={(newText) => {
@@ -66,4 +66,7 @@ const styles = StyleSheet.create({
     width: 300,
     marginTop: 10,
   },
+  invalid:{
+    borderColor: "red",
+  }
 });

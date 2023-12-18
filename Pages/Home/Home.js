@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { Topbar } from "../../Components/Topbar";
 import { Listingbox } from "./Listingbox";
 
-export function Home() {
+export function Home({navigation}) {
     var items = [
         { description: "sweater, nicely worn, Large" },
         { description: "shirt, bad, medium" },
@@ -22,7 +22,7 @@ export function Home() {
     return (
         <>
             <SafeAreaView>
-                <Topbar></Topbar>
+                <Topbar navigation = {navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>
                         {items.map((item, i) => {

@@ -18,10 +18,12 @@ export function Loginform(props) {
       props.seterror("pass")
     }
     
+    //successful login
     else{
       setid("");
       setpass("");
       props.seterror("");
+      props.navigation.navigate("Home");
     };
   }
 

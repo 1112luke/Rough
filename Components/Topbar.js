@@ -1,26 +1,34 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
-import global from "../style.js"
+import global from "../style.js";
 
-export function Topbar({navigation}) {
-
-    function handleBack(){
+export function Topbar({ navigation }) {
+    function handleBack() {
         navigation.navigate("Login");
-        console.log("clicked")
+        console.log("clicked");
     }
 
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.left}>
-                    <Pressable onpress = {handleBack} style = {{backgroundColor:"blue"}}>
-                        <Text style = {[global.text, {fontSize: 30}]}>Learn</Text>
+                    <Pressable onPress={handleBack}>
+                        <Text style={[global.text, { fontSize: 30 }]}>
+                            Learn
+                        </Text>
                     </Pressable>
                 </View>
                 <View style={styles.middle}>
-                    <Text style = {[global.text, {fontSize: 40, textAlign: "center"}]}>Rough</Text>
+                    <Text
+                        style={[
+                            global.text,
+                            { fontSize: 40, textAlign: "center" },
+                        ]}
+                    >
+                        Rough
+                    </Text>
                 </View>
                 <View style={[styles.right]}>
-                    <Text style = {{fontSize: 30}}>40💎</Text>
+                    <Text style={{ fontSize: 30 }}>40💎</Text>
                 </View>
             </View>
         </>
@@ -35,13 +43,13 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     left: {
-        padding:5,
+        padding: 5,
         paddingLeft: 10,
-        flex:1,
+        flex: 1,
     },
     middle: {
         float: "left",
-        flex: 2.5, 
+        flex: 2.5,
     },
     right: {
         flex: 1,

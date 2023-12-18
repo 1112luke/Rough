@@ -1,23 +1,25 @@
 import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
 import { Topbar } from "../../Components/Topbar";
 import { Listingbox } from "./Listingbox";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../Components/config/firebase";
 
 export function Home({ navigation }) {
-    var items = [
-        { description: "sweater, nicely worn, Large" },
-        { description: "shirt, bad, medium" },
-        { description: "awful socks low" },
-        { description: "sweet nasa socks, large" },
-        { description: "sweater, nicely worn, Large" },
-        { description: "shirt, bad, medium" },
-        { description: "awful socks low" },
-        { description: "sweet nasa socks, large" },
-        { description: "sweater, nicely worn, Large" },
-        { description: "shirt, bad, medium" },
-        { description: "awful socks low" },
-        { description: "sweet nasa socks, large" },
-        { description: "sweet nasa socks, large" },
-    ];
+    const [listings, setlistings] = useState([]);
+
+    //get listings
+    useEffect(() => {
+        const listingquery = collection(db, "listings");
+        onSnapshot(listingquery, (snapshot) => {
+            const newlistings = [];
+            snapshot.docs.forEach((listingdoc) => {
+                var listing = listingdoc.data();
+                newlistings.push(listing);
+            });
+            setlistings(newlistings);
+        });
+    }, []);
 
     return (
         <>
@@ -25,12 +27,12 @@ export function Home({ navigation }) {
                 <Topbar navigation={navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>
-                        {items.map((item, i) => {
+                        {listings.map((listing, i) => {
                             return (
                                 /*wrap in a pressable that links to an "item page" component that takes the item as props*/
                                 <Listingbox
                                     image={i}
-                                    text={item.description}
+                                    text={listing.description}
                                     style={styles.listing}
                                     key={i}
                                 ></Listingbox>

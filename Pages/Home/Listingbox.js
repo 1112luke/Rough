@@ -1,15 +1,25 @@
 import { View, Text, StyleSheet } from "react-native";
-import global from "../../style.js"
+import global from "../../style.js";
 
 export function Listingbox(props) {
     return (
         <>
-            <View style={styles.container}>
-                <View style={styles.top}>
-                    <Text style = {{margin: 40}}>{props.image}</Text>
-                </View>
-                <View style={styles.bottom}>
-                    <Text style = {[global.text, {fontSize: 20, textAlign: "center"}]}>{props.text}</Text>
+            {/*use outer view to allow flex display to function properly with the margin*/}
+            <View style={styles.outer}>
+                <View style={styles.container}>
+                    <View style={styles.top}>
+                        <Text style={{ margin: 40 }}>{props.image}</Text>
+                    </View>
+                    <View style={styles.bottom}>
+                        <Text
+                            style={[
+                                global.text,
+                                { fontSize: 20, textAlign: "center" },
+                            ]}
+                        >
+                            {props.text}
+                        </Text>
+                    </View>
                 </View>
             </View>
         </>
@@ -17,24 +27,27 @@ export function Listingbox(props) {
 }
 
 const styles = StyleSheet.create({
+    outer: {
+        flexBasis: "50%",
+    },
     container: {
         flexDirection: "column",
-        margin:5,
-        borderWidth:2,
+        margin: 5,
+        borderWidth: 2,
+        borderRadius: 5,
         borderColor: "#a9b0ab",
-        height:200,
-        boxSizing: "border-box",
-        flexBasis: "47%",
+        height: 200,
     },
     top: {
         justifyContent: "center",
         alignItems: "center",
         borderBottomWidth: 2,
-        flex:3,
+        flex: 3,
     },
     bottom: {
         justifyContent: "center",
         alignItems: "center",
         flex: 1,
-    }
+        backgroundColor: "lightgray",
+    },
 });

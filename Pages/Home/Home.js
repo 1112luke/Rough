@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { Topbar } from "../../Components/Topbar";
 import { Listingbox } from "./Listingbox";
 
-export function Home({navigation}) {
+export function Home({ navigation }) {
     var items = [
         { description: "sweater, nicely worn, Large" },
         { description: "shirt, bad, medium" },
@@ -22,7 +22,7 @@ export function Home({navigation}) {
     return (
         <>
             <SafeAreaView>
-                <Topbar navigation = {navigation}></Topbar>
+                <Topbar navigation={navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>
                         {items.map((item, i) => {
@@ -32,7 +32,7 @@ export function Home({navigation}) {
                                     image={i}
                                     text={item.description}
                                     style={styles.listing}
-                                    key="i"
+                                    key={i}
                                 ></Listingbox>
                             );
                         })}
@@ -52,16 +52,3 @@ const styles = StyleSheet.create({
         flexWrap: "wrap",
     },
 });
-
-/*
-function getlistingboxes(){
-    //create array with subarrays of rows
-    var newitems = []
-    for(var i = 0; i < items.length; i++){
-        var out = []
-        for(var j = 0; j < 2, j++){
-            out.push[items[j + i*2]]
-        }
-    }
-}
-*/

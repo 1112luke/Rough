@@ -8,7 +8,7 @@ import { db } from "../../Components/config/firebase";
 export function Home({ navigation }) {
     const [listings, setlistings] = useState([]);
 
-    //get listings
+    //get listings -- eventually this will be a more advanced query
     useEffect(() => {
         const listingquery = collection(db, "listings");
         onSnapshot(listingquery, (snapshot) => {
@@ -32,7 +32,7 @@ export function Home({ navigation }) {
                                 /*wrap in a pressable that links to an "item page" component that takes the item as props*/
                                 <Listingbox
                                     image={i}
-                                    text={listing.description}
+                                    listing={listing}
                                     style={styles.listing}
                                     key={i}
                                 ></Listingbox>

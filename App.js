@@ -10,9 +10,21 @@ export default function App() {
     return (
         <>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName = "Login" screenOptions={{headerShown: false}}>
-                  <Stack.Screen name = "Login" component = {Login} options={{ animation: 'none' }}/>
-                  <Stack.Screen name = "Home" component = {Home} options={{ animation: 'none' }}/>
+                <Stack.Navigator
+                    initialRouteName="Login"
+                    screenOptions={{ headerShown: false }}
+                >
+                    {/*eventually link to a component that only handles tab view and has an initial route to home*/}
+                    <Stack.Screen
+                        name="Login"
+                        component={Login}
+                        options={{ animation: "none" }}
+                    />
+                    <Stack.Screen
+                        name="Home"
+                        component={Home}
+                        options={{ animation: "none" }}
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
             <StatusBar style="auto" />

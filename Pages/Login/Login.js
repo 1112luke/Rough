@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Loginform } from "./Loginform.js";
 import { Error } from "./Error.js";
 
-export function Login() {
+export function Login({navigation}) {
   const [errorid, seterror] = useState("");
 
   return (
@@ -13,7 +13,7 @@ export function Login() {
         <Text style={styles.text}>Rough</Text>
       </View>
       <View style={styles.middle}>
-        <Loginform seterror={seterror} errorid = {errorid}></Loginform>
+        <Loginform seterror={seterror} errorid = {errorid} navigation = {navigation}></Loginform>
       </View>
       <View style={styles.bottom}>
         <Text></Text>

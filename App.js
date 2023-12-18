@@ -1,12 +1,21 @@
 import { StatusBar } from "expo-status-bar";
 import { Login } from "./Pages/Login/Login";
 import { Home } from "./Pages/Home/Home";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-export default function App(){
-  return(
-    <>
-    <Home></Home>
-    <StatusBar style="auto" />
-    </>
-  );
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+    return (
+        <>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName = "Login" screenOptions={{headerShown: false}}>
+                  <Stack.Screen name = "Login" component = {Login} options={{ animation: 'none' }}/>
+                  <Stack.Screen name = "Home" component = {Home} options={{ animation: 'none' }}/>
+                </Stack.Navigator>
+            </NavigationContainer>
+            <StatusBar style="auto" />
+        </>
+    );
 }

@@ -1,12 +1,20 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import global from "../style.js"
 
-export function Topbar() {
+export function Topbar({navigation}) {
+
+    function handleBack(){
+        navigation.navigate("Login");
+        console.log("clicked")
+    }
+
     return (
         <>
             <View style={styles.container}>
                 <View style={styles.left}>
-                    <Text style = {[global.text, {fontSize: 30}]}>Learn</Text>
+                    <Pressable onpress = {handleBack} style = {{backgroundColor:"blue"}}>
+                        <Text style = {[global.text, {fontSize: 30}]}>Learn</Text>
+                    </Pressable>
                 </View>
                 <View style={styles.middle}>
                     <Text style = {[global.text, {fontSize: 40, textAlign: "center"}]}>Rough</Text>

@@ -10,10 +10,10 @@ export function Login() {
     <SafeAreaView style={styles.container}>
       <Error errorid={errorid}></Error>
       <View style={styles.header}>
-        <Text style={styles.text}>ROUGH</Text>
+        <Text style={styles.text}>Rough</Text>
       </View>
       <View style={styles.middle}>
-        <Loginform seterror={seterror}></Loginform>
+        <Loginform seterror={seterror} errorid = {errorid}></Loginform>
       </View>
       <View style={styles.bottom}>
         <Text></Text>

@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet } from "react-native";
 import global from "../../style.js";
 
-export function Listingbox(props) {
+export function Listingbox({ image, listing }) {
     return (
         <>
             {/*use outer view to allow flex display to function properly with the margin*/}
             <View style={styles.outer}>
                 <View style={styles.container}>
                     <View style={styles.top}>
-                        <Text style={{ margin: 40 }}>{props.image}</Text>
+                        <Text style={{ margin: 40 }}>{image}</Text>
                     </View>
                     <View style={styles.bottom}>
                         <Text
@@ -17,7 +17,9 @@ export function Listingbox(props) {
                                 { fontSize: 20, textAlign: "center" },
                             ]}
                         >
-                            {props.text}
+                            {`${listing.description.toUpperCase()} - ${
+                                listing.size
+                            }`}
                         </Text>
                     </View>
                 </View>

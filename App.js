@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
+import { Mainnav } from "./Components/Mainnav";
 import { Login } from "./Pages/Login/Login";
-import { Home } from "./Pages/Home/Home";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -16,14 +16,14 @@ export default function App() {
                 >
                     {/*eventually link to a component that only handles tab view and has an initial route to home*/}
                     <Stack.Screen
-                        name="Login"
-                        component={Login}
+                        name="Mainnav"
+                        component={Mainnav}
                         options={{ animation: "none" }}
                     />
                     <Stack.Screen
-                        name="Home"
-                        component={Home}
-                        options={{ animation: "none" }}
+                        name="Login"
+                        component={Login}
+                        options={{ animation: "none", gestureEnabled: "false" }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

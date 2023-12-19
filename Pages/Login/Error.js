@@ -1,15 +1,15 @@
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
-import { useEffect } from "react";
+import global from "../../style";
 
-export function Error(props){
+export function Error(props) {
     var errorid = props.errorid;
-    return(
+    return (
         <>
-            {(errorid == "id") && <Text style = {styles.er}>ID Error</Text>}
-            {(errorid == "pass") && <Text style = {styles.er}>Password Error</Text>}
-            {(errorid == "both") && <Text style = {styles.er}>Both Error</Text>}
-            {(errorid == "") && <Text style = {{color: "white",}}>filler</Text>}
+            {errorid == "id" && <Text style={styles.er}>ID Error</Text>}
+            {errorid == "pass" && <Text style={styles.er}>Password Error</Text>}
+            {errorid == "both" && <Text style={styles.er}>Both Error</Text>}
+            {errorid == "" && <Text style={{ opacity: 0 }}>filler</Text>}
         </>
     );
 }
@@ -17,5 +17,5 @@ export function Error(props){
 const styles = StyleSheet.create({
     er: {
         color: "red",
-    }
-})
+    },
+});

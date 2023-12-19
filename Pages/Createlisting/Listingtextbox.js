@@ -1,17 +1,20 @@
 import { View, Text, StyleSheet, TextInput } from "react-native";
+import global from "../../style";
 
-export function Listingtextbox({ name, description, value, onChange }) {
+export function Listingtextbox({ name, description, value, setvalue }) {
     return (
         <>
-            <View style={styles.container}>
+            <View style={[styles.container, global.blueshadow]}>
                 <View style={styles.left}>
-                    <Text style={styles.text}>{name.toUpperCase()}</Text>
+                    <Text style={[styles.text, global.font]}>
+                        {name.toUpperCase()}
+                    </Text>
                 </View>
                 <View style={styles.right}>
                     <TextInput
                         placeholder={description}
                         value={value}
-                        onChangeText={(newtext) => onChange(newtext)}
+                        onChangeText={(newtext) => setvalue(newtext)}
                     ></TextInput>
                 </View>
             </View>
@@ -22,7 +25,7 @@ export function Listingtextbox({ name, description, value, onChange }) {
 const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
-        padding: 20,
+        padding: 17,
         backgroundColor: "#34c0eb",
         borderRadius: 7,
         margin: 20,
@@ -32,9 +35,12 @@ const styles = StyleSheet.create({
     },
     right: {
         flex: 1,
+        justifyContent: "center",
+        alignItems: "flex-start",
     },
     text: {
         textAlign: "center",
-        color: "#ffffff",
+        color: "black",
+        fontSize: 20,
     },
 });

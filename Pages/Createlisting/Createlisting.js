@@ -2,13 +2,14 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, Text } from "react-native";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Createlistingform } from "./Createlistingform";
+import global from "../../style";
 
 export function Createlisting() {
     const tabBarHeight = useBottomTabBarHeight();
 
     return (
         <>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.container, global.creme]}>
                 <View style={styles.imagebox}>
                     <Text>Image</Text>
                 </View>

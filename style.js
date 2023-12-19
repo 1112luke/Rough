@@ -24,4 +24,16 @@ export default StyleSheet.create({
     bluefill: {
         backgroundColor: "#56949F",
     },
+    blackshadow: {
+        shadowColor: "black",
+        shadowOffset: { width: -3, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 3,
+    },
+    blueshadow: {
+        shadowColor: "#65AFFF",
+        shadowOffset: { width: -3, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
+    },
 });

@@ -19,7 +19,7 @@ export function Listingtextbox({ name, description, value, onChange }) {
     );
 }
 
-styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         padding: 20,

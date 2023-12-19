@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Mainnav } from "./Components/Mainnav";
-import { Home } from "./Pages/Home/Home";
+import { Login } from "./Pages/Login/Login";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -21,8 +21,8 @@ export default function App() {
                         options={{ animation: "none" }}
                     />
                     <Stack.Screen
-                        name="Home"
-                        component={Home}
+                        name="Login"
+                        component={Login}
                         options={{ animation: "none", gestureEnabled: "false" }}
                     />
                 </Stack.Navigator>

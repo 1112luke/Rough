@@ -29,7 +29,7 @@ export function Loginform(props) {
             setid("");
             setpass("");
             props.seterror("");
-            props.navigation.navigate("Home");
+            props.navigation.navigate("Mainnav");
         }
     }
 

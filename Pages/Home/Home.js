@@ -4,6 +4,7 @@ import { Topbar } from "../../Components/Topbar";
 import { Listingbox } from "./Listingbox";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../Components/config/firebase";
+import global from "../../style";
 
 export function Home({ navigation }) {
     const [listings, setlistings] = useState([]);
@@ -23,7 +24,7 @@ export function Home({ navigation }) {
 
     return (
         <>
-            <SafeAreaView>
+            <SafeAreaView style={global.creme}>
                 <Topbar navigation={navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>

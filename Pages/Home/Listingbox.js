@@ -6,14 +6,15 @@ export function Listingbox({ image, listing }) {
         <>
             {/*use outer view to allow flex display to function properly with the margin*/}
             <View style={styles.outer}>
-                <View style={styles.container}>
-                    <View style={styles.top}>
+                <View style={[global.borders, styles.container]}>
+                    <View style={[styles.top]}>
                         <Text style={{ margin: 40 }}>{image}</Text>
                     </View>
-                    <View style={styles.bottom}>
+                    <View style={[styles.bottom, global.bluefill]}>
                         <Text
                             style={[
-                                global.text,
+                                global.font,
+                                ,
                                 { fontSize: 20, textAlign: "center" },
                             ]}
                         >
@@ -37,19 +38,20 @@ const styles = StyleSheet.create({
         margin: 5,
         borderWidth: 2,
         borderRadius: 5,
-        borderColor: "#a9b0ab",
         height: 200,
+        shadowColor: "black",
+        shadowOffset: { width: -3, height: 4 },
+        shadowOpacity: 0.4,
+        shadowRadius: 3,
     },
     top: {
         justifyContent: "center",
         alignItems: "center",
-        borderBottomWidth: 2,
         flex: 3,
     },
     bottom: {
         justifyContent: "center",
         alignItems: "center",
         flex: 1,
-        backgroundColor: "lightgray",
     },
 });

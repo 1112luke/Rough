@@ -10,7 +10,10 @@ export function Mainnav() {
         <Tab.Navigator
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: { position: "absolute" },
+                tabBarStyle: {
+                    position: "absolute",
+                    backgroundColor: "#F7EDD8",
+                },
             }}
         >
             <Tab.Screen name="Home" component={Home} />

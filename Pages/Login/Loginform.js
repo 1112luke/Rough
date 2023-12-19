@@ -1,6 +1,7 @@
 import { Text, StyleSheet, TextInput } from "react-native";
 import { useState, useEffect } from "react";
 import { Goodbutton } from "../../Components/Goodbutton";
+import global from "../../style";
 
 export function Loginform(props) {
     const [id, setid] = useState("");
@@ -35,7 +36,17 @@ export function Loginform(props) {
 
     return (
         <>
-            <Text style={{ color: "black", fontSize: 40, marginBottom: 40 }}>
+            <Text
+                style={[
+                    {
+                        color: "black",
+                        fontSize: 40,
+                        marginBottom: 10,
+                        marginTop: 0,
+                    },
+                    global.font,
+                ]}
+            >
                 SIGN IN
             </Text>
             <TextInput

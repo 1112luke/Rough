@@ -1,4 +1,6 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
+import { Roughlogo } from "./Roughlogo.js";
+import { Gem } from "./Gem.js";
 import global from "../style.js";
 
 export function Topbar({ navigation }) {
@@ -9,10 +11,16 @@ export function Topbar({ navigation }) {
 
     return (
         <>
-            <View style={styles.container}>
+            <View style={[styles.container, global.borders]}>
                 <View style={styles.left}>
                     <Pressable onPress={handleBack}>
-                        <Text style={[global.text, { fontSize: 30 }]}>
+                        <Text
+                            style={[
+                                global.font,
+                                global.bluefont,
+                                { fontSize: 30, textAlign: "center" },
+                            ]}
+                        >
                             Learn
                         </Text>
                     </Pressable>
@@ -20,15 +28,44 @@ export function Topbar({ navigation }) {
                 <View style={styles.middle}>
                     <Text
                         style={[
-                            global.text,
-                            { fontSize: 40, textAlign: "center" },
+                            global.font,
+                            global.bluefont,
+                            {
+                                fontSize: 45,
+                            },
                         ]}
                     >
                         Rough
                     </Text>
+
+                    {/* <View style={styles.logowrapper}>
+                        <Roughlogo scale="1"></Roughlogo>
+                    </View>*/}
                 </View>
+
                 <View style={[styles.right]}>
-                    <Text style={{ fontSize: 30 }}>40💎</Text>
+                    <View style={{ flex: 1, flexDirection: "row" }}>
+                        <View
+                            style={{
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                            }}
+                        >
+                            <Text style={[{ fontSize: 30 }, global.font]}>
+                                40
+                            </Text>
+                        </View>
+
+                        <View
+                            style={{
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                paddingBottom: 4,
+                            }}
+                        >
+                            <Gem x="30" y="30"></Gem>
+                        </View>
+                    </View>
                 </View>
             </View>
         </>
@@ -38,24 +75,38 @@ export function Topbar({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         borderBottomWidth: 2,
-        borderBottomColor: "#a9b0ab",
         flexDirection: "row",
-        paddingBottom: 10,
+        paddingBottom: 0,
     },
     left: {
-        padding: 5,
-        paddingLeft: 10,
-        flex: 1,
+        flex: 1.3,
+        justifyContent: "flex-end",
+        alignItems: "center",
     },
     middle: {
         float: "left",
         flex: 2.5,
-    },
-    right: {
-        flex: 1,
+        display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        paddingRight: 4,
-        paddingLeft: 10,
+        shadowColor: "#65afff",
+        shadowOffset: { width: -2, height: 3 },
+        shadowOpacity: 0.4,
+        shadowRadius: 0,
+        /*
+        height: 110,
+        backgroundColor: "red",
+        overflow: "hidden",
+    */
+    },
+    logowrapper: {
+        position: "relative",
+        top: -15,
+        left: -10,
+    },
+    right: {
+        flex: 1.3,
+        justifyContent: "flex-end",
+        alignItems: "center",
     },
 });

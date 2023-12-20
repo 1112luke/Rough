@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home } from "../Pages/Home/Home";
 import { Createlisting } from "../Pages/Createlisting/Createlisting";
+import { Camerapage } from "../Pages/Createlisting/Camerapage";
 
 const Tab = createBottomTabNavigator();
 

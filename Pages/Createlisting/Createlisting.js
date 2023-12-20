@@ -1,5 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { useState, useEffect } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Createlistingform } from "./Createlistingform";
 import global from "../../style";
@@ -11,7 +12,10 @@ export function Createlisting() {
         <>
             <SafeAreaView style={[styles.container, global.creme]}>
                 <View style={styles.imagebox}>
-                    <Text>Image</Text>
+                    <Image
+                        style={styles.image}
+                        source={{ uri: "https://picsum.photos/200/300" }}
+                    ></Image>
                 </View>
                 <View
                     style={[styles.formwrapper, { marginBottom: tabBarHeight }]}
@@ -34,11 +38,15 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        borderWidth: 5,
-        borderColor: "#34c0eb",
-        borderRadius: 4,
     },
     formwrapper: {
         flex: 2,
+    },
+    image: {
+        width: 200,
+        height: "100%",
+        borderWidth: 5,
+        borderColor: "#65AFFF",
+        borderRadius: 5,
     },
 });

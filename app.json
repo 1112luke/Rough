@@ -26,6 +26,16 @@
         "web": {
             "favicon": "./assets/favicon.png"
         },
+        "plugins": [
+            [
+                "react-native-vision-camera",
+                {
+                    "cameraPermissionText": "Rough needs access to your Camera.",
+                    "enableMicrophonePermission": true,
+                    "microphonePermissionText": "Rough needs access to your Microphone."
+                }
+            ]
+        ],
         "extra": {
             "eas": {
                 "projectId": "d3be7ce0-7bb5-4cac-a765-d16a685a4c90"

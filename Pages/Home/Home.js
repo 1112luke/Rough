@@ -32,7 +32,7 @@ export function Home({ navigation }) {
                             return (
                                 /*wrap in a pressable that links to an "item page" component that takes the item as props*/
                                 <Listingbox
-                                    image={i}
+                                    image={listing.image}
                                     listing={listing}
                                     style={styles.listing}
                                     key={i}

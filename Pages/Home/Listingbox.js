@@ -1,14 +1,47 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { useState, useEffect } from "react";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 
 export function Listingbox({ image, listing }) {
+    const [img, setimg] = useState(null);
+    const [imgloading, setimgloading] = useState(true);
+    const storage = getStorage();
+
+    async function getImage() {
+        setimgloading(true);
+        const imagelocation = ref(storage, `images/${listing.image}`);
+        const url = await getDownloadURL(imagelocation);
+        const res = await fetch(url, { cache: "no-cache" });
+        const blo = await res.blob();
+        setimg(blo);
+        setimgloading(false);
+    }
+
+    useEffect(() => {
+        getImage();
+    }, []);
+
     return (
         <>
             {/*use outer view to allow flex display to function properly with the margin*/}
             <View style={styles.outer}>
                 <View style={[global.borders, styles.container]}>
-                    <View style={[styles.top]}>
-                        <Text style={{ margin: 40 }}>{image}</Text>
+                    <View
+                        style={[
+                            styles.top,
+                            global.creme,
+                            { overflow: "hidden" },
+                        ]}
+                    >
+                        {imgloading ? (
+                            <Text>LOADING</Text>
+                        ) : (
+                            <Image
+                                style={[styles.image]}
+                                source={{ uri: URL.createObjectURL(img) }}
+                            ></Image>
+                        )}
                     </View>
                     <View style={[styles.bottom, global.bluefill]}>
                         <Text
@@ -42,7 +75,7 @@ const styles = StyleSheet.create({
         shadowColor: "black",
         shadowOffset: { width: -3, height: 4 },
         shadowOpacity: 0.4,
-        shadowRadius: 3,
+        shadowRadius: 0,
     },
     top: {
         justifyContent: "center",
@@ -53,5 +86,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flex: 1,
+    },
+    image: {
+        width: 180,
+        height: "100%",
     },
 });

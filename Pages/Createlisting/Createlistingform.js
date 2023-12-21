@@ -6,6 +6,8 @@ import { Submitbutton } from "../../Components/Submitbutton";
 import global from "../../style";
 
 export function Createlistingform({
+    name,
+    setname,
     description,
     setdescription,
     size,
@@ -17,6 +19,12 @@ export function Createlistingform({
 }) {
     return (
         <>
+            <Listingtextbox
+                name="Name:"
+                description="Enter Item Name"
+                value={name}
+                setvalue={setname}
+            ></Listingtextbox>
             <Listingtextbox
                 name="Description:"
                 description="Enter Item Description"

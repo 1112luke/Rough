@@ -18,6 +18,10 @@ export function Signinform(props) {
     }, [id]);
 
     async function handleSignIn() {
+        //setusername for testing
+        setid("lukescholler@gmail.com");
+        setpass("1122Greeny..");
+
         //error handling
         if (pass == "" && id == "") {
             props.seterror("both");
@@ -33,10 +37,9 @@ export function Signinform(props) {
             setpass("");
             props.seterror("");
 
-            //signup
+            //signin
             try {
                 await signInWithEmailAndPassword(auth, id, pass);
-                props.navigation.navigate("Mainnav");
             } catch (e) {
                 console.log(e.code);
             }

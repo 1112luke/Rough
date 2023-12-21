@@ -13,6 +13,7 @@ import global from "../../style";
 
 export function Createlisting() {
     const tabBarHeight = useBottomTabBarHeight();
+    const [name, setname] = useState("");
     const [description, setdescription] = useState("");
     const [size, setsize] = useState("");
     const [price, setprice] = useState("");
@@ -33,6 +34,7 @@ export function Createlisting() {
         //push data
         const listingref = collection(db, "listings");
         const data = {
+            name: name,
             description: description,
             size: size,
             price: price,
@@ -42,10 +44,12 @@ export function Createlisting() {
         await addDoc(listingref, data);
 
         //clear inputs
+        setname("");
         setdescription("");
         setsize("");
         setprice("");
 
+        //getnewimageandstopsubmitting
         await getimage();
         setsubmitting(false);
     }
@@ -81,6 +85,8 @@ export function Createlisting() {
                     style={[styles.formwrapper, { marginBottom: tabBarHeight }]}
                 >
                     <Createlistingform
+                        name={name}
+                        setname={setname}
                         description={description}
                         setdescription={setdescription}
                         size={size}

@@ -2,10 +2,11 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Roughlogo } from "./Roughlogo.js";
 import { Gem } from "./Gem.js";
 import global from "../style.js";
+import { auth } from "./config/firebase.js";
 
 export function Topbar({ navigation }) {
     function handleBack() {
-        navigation.navigate("Signup");
+        auth.signOut();
     }
 
     return (

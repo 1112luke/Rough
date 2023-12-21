@@ -28,7 +28,7 @@ export function Home({ navigation }) {
 
     return (
         <>
-            <SafeAreaView style={global.creme}>
+            <SafeAreaView style={[global.creme, { flex: 1 }]}>
                 <Topbar navigation={navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>
@@ -36,7 +36,6 @@ export function Home({ navigation }) {
                             return (
                                 /*wrap in a pressable that links to an "item page" component that takes the item as props*/
                                 <Listingbox
-                                    image={listing.image}
                                     listing={listing}
                                     style={styles.listing}
                                     key={i}

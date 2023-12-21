@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 
-export function Listingbox({ image, listing }) {
+export function Listingbox({ listing }) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
     const storage = getStorage();
@@ -20,7 +20,7 @@ export function Listingbox({ image, listing }) {
 
     useEffect(() => {
         getImage();
-    }, []);
+    }, [listing]);
 
     return (
         <>

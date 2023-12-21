@@ -46,6 +46,7 @@ export function Createlisting() {
         setsize("");
         setprice("");
 
+        await getimage();
         setsubmitting(false);
     }
 

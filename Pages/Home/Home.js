@@ -12,10 +12,12 @@ export function Home({ navigation }) {
     //get listings -- eventually this will be a more advanced query
     useEffect(() => {
         const listingref = collection(db, "listings");
+
         const listingquery = query(
             listingref,
             where("owner", "==", auth.currentUser.uid)
         );
+
         onSnapshot(listingquery, (snapshot) => {
             const newlistings = [];
             snapshot.docs.forEach((listingdoc) => {
@@ -26,22 +28,49 @@ export function Home({ navigation }) {
         });
     }, []);
 
+    function goToPage(listing, img) {
+        navigation.navigate("Listingpage", { listing: listing, image: img });
+    }
+
     return (
         <>
             <SafeAreaView style={[global.creme, { flex: 1 }]}>
                 <Topbar navigation={navigation}></Topbar>
                 <ScrollView>
                     <View style={styles.container}>
-                        {listings.map((listing, i) => {
-                            return (
-                                /*wrap in a pressable that links to an "item page" component that takes the item as props*/
-                                <Listingbox
-                                    listing={listing}
-                                    style={styles.listing}
-                                    key={i}
-                                ></Listingbox>
-                            );
-                        })}
+                        {listings == [] ? (
+                            <>
+                                <View
+                                    style={{
+                                        flex: 1,
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <Text
+                                        style={[
+                                            global.font,
+                                            {
+                                                fontSize: 30,
+                                                textAlign: "center",
+                                            },
+                                        ]}
+                                    >
+                                        Nothing Here...
+                                    </Text>
+                                </View>
+                            </>
+                        ) : (
+                            listings.map((listing, i) => {
+                                return (
+                                    <Listingbox
+                                        listing={listing}
+                                        goToPage={goToPage}
+                                        key={i}
+                                    ></Listingbox>
+                                );
+                            })
+                        )}
                         <View style={{ height: 300 }}>
                             <Text style={{ color: "white" }}>.</Text>
                         </View>

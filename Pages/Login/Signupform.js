@@ -36,7 +36,6 @@ export function Signupform(props) {
             //signup
             try {
                 await createUserWithEmailAndPassword(auth, id, pass);
-                props.navigation.navigate("Mainnav");
             } catch (e) {
                 console.log(e.code);
             }

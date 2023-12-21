@@ -1,11 +1,12 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 
-export function Listingbox({ listing }) {
+export function Listingbox({ listing, goToPage }) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
+    const [pressed, setpressed] = useState(false);
     const storage = getStorage();
 
     async function getImage() {
@@ -25,8 +26,26 @@ export function Listingbox({ listing }) {
     return (
         <>
             {/*use outer view to allow flex display to function properly with the margin*/}
-            <View style={styles.outer}>
-                <View style={[global.borders, styles.container]}>
+            <Pressable
+                onPressIn={() => {
+                    setpressed(true);
+                }}
+                onPressOut={() => {
+                    setpressed(false);
+                }}
+                onPress={() => {
+                    //pass listing and listing image that is already fetched to listingpage
+                    goToPage(listing, img);
+                }}
+                style={[styles.outer]}
+            >
+                <View
+                    style={[
+                        global.borders,
+                        styles.container,
+                        pressed && styles.pressed,
+                    ]}
+                >
                     <View
                         style={[
                             styles.top,
@@ -35,7 +54,9 @@ export function Listingbox({ listing }) {
                         ]}
                     >
                         {imgloading ? (
-                            <Text>LOADING</Text>
+                            <Text style={[global.font, { fontSize: 15 }]}>
+                                LOADING
+                            </Text>
                         ) : (
                             <Image
                                 style={[styles.image]}
@@ -51,13 +72,11 @@ export function Listingbox({ listing }) {
                                 { fontSize: 20, textAlign: "center" },
                             ]}
                         >
-                            {`${listing.description.toUpperCase()} - ${
-                                listing.size
-                            }`}
+                            {`${listing.name.toUpperCase()} - ${listing.size}`}
                         </Text>
                     </View>
                 </View>
-            </View>
+            </Pressable>
         </>
     );
 }
@@ -90,5 +109,9 @@ const styles = StyleSheet.create({
     image: {
         width: 180,
         height: "100%",
+    },
+    pressed: {
+        shadowOpacity: 0,
+        transform: [{ translateX: -3 }, { translateY: 4 }],
     },
 });

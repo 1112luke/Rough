@@ -2,7 +2,6 @@ import { View, StyleSheet, Text, Pressable } from "react-native";
 import global from "../../style";
 
 export function Listingradioselection({ name, options, value, setvalue }) {
-    console.log(value);
     return (
         <View style={[styles.container, global.blueshadow]}>
             <View style={styles.left}>

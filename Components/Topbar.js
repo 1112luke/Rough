@@ -5,8 +5,7 @@ import global from "../style.js";
 
 export function Topbar({ navigation }) {
     function handleBack() {
-        navigation.navigate("Login");
-        console.log("clicked");
+        navigation.navigate("Signup");
     }
 
     return (

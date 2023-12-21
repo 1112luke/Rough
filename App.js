@@ -1,13 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import { Mainnav } from "./Components/Mainnav";
-import { Login } from "./Pages/Login/Login";
+import { Signup } from "./Pages/Login/Signup";
 import { useCallback } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { Signin } from "./Pages/Login/Signin";
 import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
+
+//add observer for onauthstatechanged to update nav trees depending on user auth
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -28,7 +31,7 @@ export default function App() {
         <>
             <NavigationContainer>
                 <Stack.Navigator
-                    initialRouteName="Login"
+                    initialRouteName="Signup"
                     screenOptions={{ headerShown: false }}
                 >
                     {/*eventually link to a component that only handles tab view and has an initial route to home*/}
@@ -38,8 +41,13 @@ export default function App() {
                         options={{ animation: "none" }}
                     />
                     <Stack.Screen
-                        name="Login"
-                        component={Login}
+                        name="Signup"
+                        component={Signup}
+                        options={{ animation: "none", gestureEnabled: "false" }}
+                    />
+                    <Stack.Screen
+                        name="Signin"
+                        component={Signin}
                         options={{ animation: "none", gestureEnabled: "false" }}
                     />
                 </Stack.Navigator>

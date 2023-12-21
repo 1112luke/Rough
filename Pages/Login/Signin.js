@@ -1,11 +1,11 @@
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { useState } from "react";
-import { Loginform } from "./Loginform.js";
+import { Signinform } from "./Signinform.js";
 import { Error } from "./Error.js";
 import global from "../../style.js";
 import { Roughlogo } from "../../Components/Roughlogo.js";
 
-export function Login({ navigation }) {
+export function Signin({ navigation }) {
     const [errorid, seterror] = useState("");
 
     return (
@@ -14,12 +14,25 @@ export function Login({ navigation }) {
             <View style={styles.header}>
                 <Roughlogo scale="3"></Roughlogo>
             </View>
+            <Text
+                style={[
+                    {
+                        color: "black",
+                        fontSize: 40,
+                        marginBottom: 0,
+                        marginTop: 0,
+                    },
+                    global.font,
+                ]}
+            >
+                SIGN IN
+            </Text>
             <View style={styles.middle}>
-                <Loginform
+                <Signinform
                     seterror={seterror}
                     errorid={errorid}
                     navigation={navigation}
-                ></Loginform>
+                ></Signinform>
             </View>
             <View style={styles.bottom}>
                 <Text></Text>
@@ -35,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     header: {
-        flex: 2,
+        flex: 3,
         marginTop: 30,
         fontWeight: "bold",
         shadowColor: "#65afff",
@@ -46,7 +59,7 @@ const styles = StyleSheet.create({
     middle: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         flex: 5,
         width: 400,
     },

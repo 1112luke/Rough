@@ -4,7 +4,6 @@ import global from "../style";
 
 export function Roughlogo(props) {
     const size = Number(props.scale);
-    console.log(size);
 
     return (
         <>

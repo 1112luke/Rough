@@ -1,7 +1,7 @@
 import { Listingtextbox } from "./Listingtextbox";
 import { Listingradioselection } from "./Listingradioselection";
 import { useState } from "react";
-import { StyleSheet, Text } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text } from "react-native";
 import { Submitbutton } from "../../Components/Submitbutton";
 import global from "../../style";
 

@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import { useEffect, useState } from "react";
 import { Topbar } from "../../Components/Topbar";
 import { Listingbox } from "./Listingbox";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../Components/config/firebase";
+import { collection, onSnapshot, where, query } from "firebase/firestore";
+import { db, auth } from "../../Components/config/firebase";
 import global from "../../style";
 
 export function Home({ navigation }) {
@@ -11,7 +11,11 @@ export function Home({ navigation }) {
 
     //get listings -- eventually this will be a more advanced query
     useEffect(() => {
-        const listingquery = collection(db, "listings");
+        const listingref = collection(db, "listings");
+        const listingquery = query(
+            listingref,
+            where("owner", "==", auth.currentUser.uid)
+        );
         onSnapshot(listingquery, (snapshot) => {
             const newlistings = [];
             snapshot.docs.forEach((listingdoc) => {

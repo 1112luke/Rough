@@ -1,9 +1,11 @@
-import { Text, StyleSheet, TextInput } from "react-native";
+import { Text, StyleSheet, TextInput, View, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { Goodbutton } from "../../Components/Goodbutton";
+import { auth } from "../../Components/config/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import global from "../../style";
 
-export function Loginform(props) {
+export function Signupform(props) {
     const [id, setid] = useState("");
     const [pass, setpass] = useState("");
 
@@ -15,8 +17,8 @@ export function Loginform(props) {
         props.seterror("");
     }, [id]);
 
-    function handleSignIn() {
-        console.log(id, pass);
+    async function handleSignIn() {
+        //error handling
         if (pass == "" && id == "") {
             props.seterror("both");
         } else if (id == "") {
@@ -25,30 +27,24 @@ export function Loginform(props) {
             props.seterror("pass");
         }
 
-        //successful login
+        //successful signup
         else {
             setid("");
             setpass("");
             props.seterror("");
-            props.navigation.navigate("Mainnav");
+
+            //signup
+            try {
+                await createUserWithEmailAndPassword(auth, id, pass);
+                props.navigation.navigate("Mainnav");
+            } catch (e) {
+                console.log(e.code);
+            }
         }
     }
 
     return (
         <>
-            <Text
-                style={[
-                    {
-                        color: "black",
-                        fontSize: 40,
-                        marginBottom: 10,
-                        marginTop: 0,
-                    },
-                    global.font,
-                ]}
-            >
-                SIGN IN
-            </Text>
             <TextInput
                 style={[
                     styles.input,
@@ -69,14 +65,27 @@ export function Loginform(props) {
                 ]}
                 value={pass}
                 placeholder="Password"
+                secureTextEntry={true}
                 onChangeText={(newText) => {
                     setpass(newText);
                 }}
             />
             <Goodbutton onpress={handleSignIn}></Goodbutton>
-            <Text style={{ fontSize: 10, color: "grey", marginTop: 5 }}>
-                Forgot Password?
-            </Text>
+            <View style={{ marginTop: 5, flexDirection: "row" }}>
+                <Text style={{ fontSize: 10, color: "grey" }}>
+                    Forgot Password?
+                </Text>
+                <View style={{ flex: 0.1 }}></View>
+                <Pressable
+                    onPress={() => {
+                        props.navigation.navigate("Signin");
+                    }}
+                >
+                    <Text style={{ fontSize: 10, color: "grey" }}>
+                        Already have an account?
+                    </Text>
+                </Pressable>
+            </View>
         </>
     );
 }

@@ -5,6 +5,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Createlistingform } from "./Createlistingform";
 import { db } from "../../Components/config/firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { auth } from "../../Components/config/firebase";
 import uuid from "react-native-uuid";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
@@ -28,7 +29,6 @@ export function Createlisting() {
         const storage = getStorage();
         const storageRef = ref(storage, `images/${imgid}`);
         await uploadBytes(storageRef, img);
-        console.log("uploaded");
 
         //push data
         const listingref = collection(db, "listings");
@@ -37,7 +37,7 @@ export function Createlisting() {
             size: size,
             price: price,
             image: imgid,
-            owner: "luke",
+            owner: auth.currentUser.uid,
         };
         await addDoc(listingref, data);
 

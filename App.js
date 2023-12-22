@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Homenav } from "./Components/Homenav";
+import { People } from "./Pages/People/People";
 import { Createlisting } from "./Pages/Createlisting/Createlisting";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Signup } from "./Pages/Login/Signup";
@@ -10,6 +11,8 @@ import { useFonts } from "expo-font";
 import { Signin } from "./Pages/Login/Signin";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Components/config/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./Components/config/firebase";
 import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
@@ -21,6 +24,23 @@ const Tab = createBottomTabNavigator();
 export default function App() {
     const [user, setuser] = useState(auth.currentUser);
 
+    //listentoauthchange
+    onAuthStateChanged(auth, (newuser) => {
+        setuser(newuser);
+    });
+
+    /* this is VERYVERY NOT GOOD TO DO EVERYTIME. fix this by placing in singup form after email verification is done or get better logic to only run if  */
+    // add user data document
+    if (user != null) {
+        const listingref = doc(db, `users/`, auth.currentUser.uid);
+        const data = {
+            uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
+        };
+        setDoc(listingref, data);
+    }
+
+    //handle fonts
     const [fontsLoaded] = useFonts({
         "BebasNeue-Regular": require("./assets/fonts/BebasNeue-Regular.ttf"),
     });
@@ -35,14 +55,10 @@ export default function App() {
         return null;
     }
 
-    //listentoauthchange
-    onAuthStateChanged(auth, (newuser) => {
-        setuser(newuser);
-    });
-
     return (
         <>
             <NavigationContainer>
+                {/* use user.emailverified in future */}
                 {user == null ? (
                     <>
                         <Stack.Navigator
@@ -82,6 +98,7 @@ export default function App() {
                             name="Createlisting"
                             component={Createlisting}
                         />
+                        <Tab.Screen name="People" component={People} />
                     </Tab.Navigator>
                 )}
             </NavigationContainer>

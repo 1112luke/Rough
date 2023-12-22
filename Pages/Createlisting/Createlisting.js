@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Createlistingform } from "./Createlistingform";
 import { db } from "../../Components/config/firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { auth } from "../../Components/config/firebase";
 import uuid from "react-native-uuid";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
@@ -40,6 +40,7 @@ export function Createlisting() {
             price: price,
             image: imgid,
             owner: auth.currentUser.uid,
+            created: serverTimestamp(),
         };
         await addDoc(listingref, data);
 

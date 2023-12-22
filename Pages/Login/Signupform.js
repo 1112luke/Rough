@@ -35,6 +35,7 @@ export function Signupform(props) {
 
             //signup
             try {
+                //create user in auth
                 await createUserWithEmailAndPassword(auth, id, pass);
             } catch (e) {
                 console.log(e.code);

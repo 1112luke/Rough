@@ -21,6 +21,11 @@ export default StyleSheet.create({
     borders: {
         borderColor: "#56949F",
     },
+    blueborder: {
+        borderWidth: 5,
+        borderRadius: 5,
+        borderColor: "#65AFFF",
+    },
     bluefill: {
         backgroundColor: "#56949F",
     },

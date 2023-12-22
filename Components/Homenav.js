@@ -16,7 +16,11 @@ export function Homenav() {
                     component={Home}
                     options={{ animation: "none" }}
                 />
-                <Stack.Screen name="Listingpage" component={Listingpage} />
+                <Stack.Screen
+                    name="Listingpage"
+                    component={Listingpage}
+                    options={{ gestureResponseDistance: 200 }}
+                />
             </Stack.Navigator>
         </>
     );

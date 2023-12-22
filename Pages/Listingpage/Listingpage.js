@@ -25,11 +25,9 @@ export function Listingpage({ route, navigation }) {
                                     {
                                         width: 200,
                                         height: 300,
-                                        borderWidth: 5,
-                                        borderRadius: 5,
-                                        borderColor: "#65AFFF",
                                     },
                                     global.blueshadow,
+                                    global.blueborder,
                                 ]}
                                 source={{ uri: URL.createObjectURL(image) }}
                             ></Image>

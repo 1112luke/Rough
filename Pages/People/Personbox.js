@@ -5,7 +5,7 @@ import { db } from "../../Components/config/firebase";
 import { auth } from "../../Components/config/firebase";
 import global from "../../style";
 
-export function Personbox({ person }) {
+export function Personbox({ person, navigation }) {
     async function handleSendFriendRequest() {
         //edit other person document
         const personref = doc(db, "users", person.uid);
@@ -95,26 +95,69 @@ export function Personbox({ person }) {
 
     return (
         <>
-            <View style={[styles.container, global.bluefill]}>
-                <Text>{person.email}</Text>
-            </View>
+            <View
+                style={[
+                    styles.container,
+                    global.creme,
+                    global.blackshadow,
+                    global.borders,
+                    { shadowRadius: 0 },
+                ]}
+            >
+                <View style={styles.top}>
+                    <View
+                        style={[
+                            global.blueborder,
+                            global.blueshadow,
+                            { backgroundColor: "#65AFFF", padding: 5 },
+                        ]}
+                    >
+                        <Text style={[global.font, { fontSize: 20 }]}>
+                            {person.email}
+                        </Text>
+                    </View>
+                </View>
 
-            {requestRecieved() ? (
-                <Submitbutton
-                    name="Accept Friend Request"
-                    onpress={handleAcceptFriendRequest}
-                ></Submitbutton>
-            ) : isFriend() ? (
-                <Submitbutton
-                    name="Already Friends!"
-                    onpress={() => {}}
-                ></Submitbutton>
-            ) : (
-                <Submitbutton
-                    name={requestSent() ? "Request Sent!" : "Add Friend"}
-                    onpress={handleSendFriendRequest}
-                ></Submitbutton>
-            )}
+                <View style={styles.bottom}>
+                    <View style={styles.left}>
+                        {requestRecieved() ? (
+                            <Submitbutton
+                                name="Accept Friend Request"
+                                onpress={handleAcceptFriendRequest}
+                            ></Submitbutton>
+                        ) : isFriend() ? (
+                            <Submitbutton
+                                marginHorizontal={10}
+                                margin={0}
+                                name="Already Friends!"
+                                onpress={() => {}}
+                            ></Submitbutton>
+                        ) : (
+                            <Submitbutton
+                                name={
+                                    requestSent()
+                                        ? "Request Sent!"
+                                        : "Add Friend"
+                                }
+                                onpress={handleSendFriendRequest}
+                            ></Submitbutton>
+                        )}
+                    </View>
+
+                    <View style={styles.right}>
+                        <Submitbutton
+                            margin={0}
+                            marginHorizontal={10}
+                            name="TRADE > "
+                            onpress={() => {
+                                navigation.navigate("Trade", {
+                                    person: person,
+                                });
+                            }}
+                        ></Submitbutton>
+                    </View>
+                </View>
+            </View>
         </>
     );
 }
@@ -123,10 +166,32 @@ const styles = StyleSheet.create({
     container: {
         justifyContent: "center",
         alignItems: "center",
-        height: 40,
+        height: 180,
         marginHorizontal: 10,
         marginVertical: 10,
         borderRadius: 5,
         borderWidth: 3,
+        flex: 1,
+    },
+    top: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    bottom: {
+        flexDirection: "row",
+        flex: 1,
+    },
+    left: {
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 2.5,
+        backgroundColor: "white",
+    },
+    right: {
+        flex: 2,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "lightblue",
     },
 });

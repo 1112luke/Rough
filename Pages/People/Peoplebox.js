@@ -8,7 +8,7 @@ import { collection, onSnapshot, where, query } from "firebase/firestore";
 import { db } from "../../Components/config/firebase";
 import global from "../../style";
 
-export function Peoplebox() {
+export function Peoplebox({ navigation }) {
     const tabBarHeight = useBottomTabBarHeight();
     const [searchtext, setsearchtext] = useState("");
     const [people, setpeople] = useState([]);
@@ -54,7 +54,13 @@ export function Peoplebox() {
 
                 <ScrollView style={styles.bottom}>
                     {people.map((person, i) => {
-                        return <Personbox person={person} key={i}></Personbox>;
+                        return (
+                            <Personbox
+                                person={person}
+                                key={i}
+                                navigation={navigation}
+                            ></Personbox>
+                        );
                     })}
                 </ScrollView>
             </View>

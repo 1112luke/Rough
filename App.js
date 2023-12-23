@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Homenav } from "./Components/Homenav";
-import { People } from "./Pages/People/People";
+import { Peoplenav } from "./Components/Peoplenav";
 import { Createlisting } from "./Pages/Createlisting/Createlisting";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Signup } from "./Pages/Login/Signup";
@@ -98,7 +98,7 @@ export default function App() {
                             name="Createlisting"
                             component={Createlisting}
                         />
-                        <Tab.Screen name="People" component={People} />
+                        <Tab.Screen name="Peoplenav" component={Peoplenav} />
                     </Tab.Navigator>
                 )}
             </NavigationContainer>

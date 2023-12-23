@@ -2,8 +2,28 @@ import { useState } from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 import global from "../style";
 
-export function Submitbutton({ name, onpress }) {
+export function Submitbutton({
+    name,
+    onpress,
+    margin,
+    marginHorizontal,
+    fontSize,
+}) {
     const [pressed, setpressed] = useState(false);
+
+    var m = 20;
+    var mh = 60;
+    var fs = 20;
+
+    if (margin) {
+        m = margin;
+    }
+    if (mh) {
+        mh = marginHorizontal;
+    }
+    if (fontSize) {
+        fs = fontSize;
+    }
 
     return (
         <>
@@ -13,6 +33,7 @@ export function Submitbutton({ name, onpress }) {
                     global.blackshadow,
                     styles.button,
                     pressed && styles.pressed,
+                    { margin: m, marginHorizontal: mh },
                 ]}
                 onPressIn={() => {
                     setpressed(true);
@@ -22,7 +43,14 @@ export function Submitbutton({ name, onpress }) {
                     onpress();
                 }}
             >
-                <Text style={[global.font, global.bluefont, styles.text]}>
+                <Text
+                    style={[
+                        global.font,
+                        global.bluefont,
+                        styles.text,
+                        { fontSize: fs },
+                    ]}
+                >
                     {name}
                 </Text>
             </Pressable>
@@ -34,8 +62,6 @@ const styles = StyleSheet.create({
     button: {
         justifyContent: "center",
         alignItems: "center",
-        margin: 20,
-        marginHorizontal: 60,
         borderRadius: 5,
         shadowRadius: 0,
     },
@@ -45,7 +71,6 @@ const styles = StyleSheet.create({
     },
     text: {
         margin: 10,
-        fontSize: 20,
         color: "black",
     },
 });

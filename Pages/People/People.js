@@ -3,7 +3,7 @@ import { Topbar } from "../../Components/Topbar";
 import { Peoplebox } from "./Peoplebox";
 import global from "../../style";
 
-export function People() {
+export function People({ navigation }) {
     return (
         <>
             <SafeAreaView style={[global.creme, { flex: 1 }]}>
@@ -21,7 +21,7 @@ export function People() {
                     </Text>
                 </View>
                 <View style={styles.bottom}></View>
-                <Peoplebox></Peoplebox>
+                <Peoplebox navigation={navigation}></Peoplebox>
             </SafeAreaView>
         </>
     );

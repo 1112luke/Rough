@@ -17,13 +17,13 @@ export function Peoplebox() {
     useEffect(() => {
         //getnewpeople based on text
         //TODO: use typesense to efficiently search this data
-        //currently showing all people
-        const listingref = collection(db, "users");
-        const listingquery = query(
-            listingref,
+        //currently showing all people besides user
+        const usersref = collection(db, "users");
+        const usersquery = query(
+            usersref,
             where("uid", "!=", auth.currentUser.uid)
         );
-        onSnapshot(listingquery, (snapshot) => {
+        onSnapshot(usersquery, (snapshot) => {
             const newpeople = [];
             snapshot.docs.forEach((persondoc) => {
                 var person = persondoc.data();

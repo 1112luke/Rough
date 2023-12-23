@@ -11,7 +11,7 @@ import { useFonts } from "expo-font";
 import { Signin } from "./Pages/Login/Signin";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Components/config/firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { db } from "./Components/config/firebase";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -37,7 +37,7 @@ export default function App() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
         };
-        setDoc(listingref, data);
+        updateDoc(listingref, data);
     }
 
     //handle fonts

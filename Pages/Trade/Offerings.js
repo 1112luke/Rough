@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { auth } from "../../Components/config/firebase";
 import { Submitbutton } from "../../Components/Submitbutton";
+import emitter from "../../Components/config/emitter";
 import global from "../../style";
 
 export function Offerings({ personid, items, setitems, navigation }) {
@@ -11,6 +12,13 @@ export function Offerings({ personid, items, setitems, navigation }) {
         setinnertext(
             personid == auth.currentUser.uid ? "Your Offering" : "What you want"
         );
+
+        //handle getting selected items from each listing box
+        emitter.on("ListingSelected", (listing) => {
+            var newitems = [...items, listing];
+            setitems(newitems);
+            console.log("items:", items);
+        });
     }, []);
 
     return (

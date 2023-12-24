@@ -11,9 +11,11 @@
   "dependencies": {
     "@expo/config-plugins": "~7.2.2",
     "@expo/webpack-config": "^19.0.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
     "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
+    "eventemitter3": "^5.0.1",
     "expo": "^49.0.21",
     "expo-dev-client": "~2.4.12",
     "expo-font": "~11.4.0",
@@ -28,8 +30,7 @@
     "react-native-svg": "13.9.0",
     "react-native-uuid": "^2.0.1",
     "react-native-vision-camera": "^3.6.17",
-    "react-native-web": "^0.19.9",
-    "@react-native-async-storage/async-storage": "1.18.2"
+    "react-native-web": "^0.19.9"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

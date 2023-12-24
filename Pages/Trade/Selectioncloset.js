@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, StyleSheet, FlatList } from "react-native";
 import { Topbar } from "../../Components/Topbar";
 import { collection, onSnapshot, where, query, doc } from "firebase/firestore";
+import { Listingbox } from "../Home/Listingbox";
 import { db, auth } from "../../Components/config/firebase";
 import global from "../../style";
-import { Listingbox } from "../Home/Listingbox";
 
 export function Selectioncloset({ route }) {
     const [user, setuser] = useState(null);
@@ -60,7 +60,13 @@ export function Selectioncloset({ route }) {
                 data={closet}
                 numColumns={2}
                 renderItem={({ item, index }) => {
-                    return <Listingbox listing={item} key={index}></Listingbox>;
+                    return (
+                        <Listingbox
+                            listing={item}
+                            mode="selection"
+                            key={index}
+                        ></Listingbox>
+                    );
                 }}
             />
         </SafeAreaView>

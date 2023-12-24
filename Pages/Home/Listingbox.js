@@ -3,11 +3,16 @@ import { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 
-export function Listingbox({ listing, goToPage }) {
+export function Listingbox({ listing, goToPage, mode }) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
+    const [selected, setselected] = useState();
     const [pressed, setpressed] = useState(false);
     const storage = getStorage();
+
+    if (mode == "info") {
+    } else if (mode == "selection") {
+    }
 
     async function getImage() {
         setimgloading(true);
@@ -35,7 +40,11 @@ export function Listingbox({ listing, goToPage }) {
                 }}
                 onPress={() => {
                     //pass listing and listing image that is already fetched to listingpage
-                    goToPage(listing, img);
+                    if (mode == "info") {
+                        goToPage(listing, img);
+                    } else if (mode == "selection") {
+                        setselected(!selected);
+                    }
                 }}
                 style={[styles.outer]}
             >

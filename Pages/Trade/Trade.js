@@ -8,7 +8,7 @@ import global from "../../style";
 import { Offerings } from "./Offerings";
 import { Submitbutton } from "../../Components/Submitbutton";
 
-export function Trade({ route }) {
+export function Trade({ route, navigation }) {
     const tabBarHeight = useBottomTabBarHeight();
     const [senderitems, setsenderitems] = useState([]);
     const [recieveeritems, setrecieveritems] = useState([]);
@@ -37,6 +37,7 @@ export function Trade({ route }) {
                             personid={person.uid}
                             items={recieveeritems}
                             setitems={setrecieveritems}
+                            navigation={navigation}
                         ></Offerings>
                     </View>
                     <View style={styles.middle}>
@@ -81,6 +82,7 @@ export function Trade({ route }) {
                             personid={auth.currentUser.uid}
                             items={senderitems}
                             setitmes={setrecieveritems}
+                            navigation={navigation}
                         ></Offerings>
                     </View>
                     <View style={{ flex: 0.1 }}></View>

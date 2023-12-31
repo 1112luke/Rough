@@ -64,6 +64,7 @@ export function Selectioncloset({ route }) {
                         <Listingbox
                             listing={item}
                             mode="selection"
+                            //add indicator for eventemitter if needed to prevent eventemitter from recieving from both
                             key={index}
                         ></Listingbox>
                     );

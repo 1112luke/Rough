@@ -2,17 +2,14 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { useState, useEffect } from "react";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
+import emitter from "../../Components/config/emitter.js";
 
 export function Listingbox({ listing, goToPage, mode }) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
-    const [selected, setselected] = useState();
+    const [selected, setselected] = useState(false);
     const [pressed, setpressed] = useState(false);
     const storage = getStorage();
-
-    if (mode == "info") {
-    } else if (mode == "selection") {
-    }
 
     async function getImage() {
         setimgloading(true);
@@ -28,12 +25,28 @@ export function Listingbox({ listing, goToPage, mode }) {
         getImage();
     }, [listing]);
 
+    function emitSelected(listing) {
+        emitter.emit("ListingSelected", listing);
+    }
+
     return (
         <>
             {/*use outer view to allow flex display to function properly with the margin*/}
             <Pressable
                 onPressIn={() => {
-                    setpressed(true);
+                    if (mode != "selection") {
+                        setpressed(true);
+                    }
+                    //handle selected logic for close pages
+                    if (mode == "selection") {
+                        if (!selected) {
+                            emitSelected(listing);
+                            console.log("selected");
+                        } else if (selected) {
+                            console.log("notselected");
+                        }
+                        setselected(!selected);
+                    }
                 }}
                 onPressOut={() => {
                     setpressed(false);
@@ -42,8 +55,6 @@ export function Listingbox({ listing, goToPage, mode }) {
                     //pass listing and listing image that is already fetched to listingpage
                     if (mode == "info") {
                         goToPage(listing, img);
-                    } else if (mode == "selection") {
-                        setselected(!selected);
                     }
                 }}
                 style={[styles.outer]}
@@ -53,6 +64,7 @@ export function Listingbox({ listing, goToPage, mode }) {
                         global.borders,
                         styles.container,
                         pressed && styles.pressed,
+                        selected && styles.selected,
                     ]}
                 >
                     <View
@@ -73,7 +85,13 @@ export function Listingbox({ listing, goToPage, mode }) {
                             ></Image>
                         )}
                     </View>
-                    <View style={[styles.bottom, global.bluefill]}>
+                    <View
+                        style={[
+                            styles.bottom,
+                            global.bluefill,
+                            selected && { backgroundColor: "#65AFFF" },
+                        ]}
+                    >
                         <Text
                             style={[
                                 global.font,
@@ -122,5 +140,13 @@ const styles = StyleSheet.create({
     pressed: {
         shadowOpacity: 0,
         transform: [{ translateX: -3 }, { translateY: 4 }],
+    },
+    selected: {
+        shadowColor: "#65AFFF",
+        transform: [{ translateX: -3 }, { translateY: 4 }],
+        shadowOpacity: 100,
+        shadowRadius: 10,
+        shadowOffset: 0,
+        borderColor: "#65AFFF",
     },
 });

@@ -11,7 +11,7 @@ import { Submitbutton } from "../../Components/Submitbutton";
 export function Trade({ route, navigation }) {
     const tabBarHeight = useBottomTabBarHeight();
     const [senderitems, setsenderitems] = useState([]);
-    const [recieveeritems, setrecieveritems] = useState([]);
+    const [recieveritems, setrecieveritems] = useState([]);
     const { person } = route.params;
 
     return (
@@ -35,7 +35,7 @@ export function Trade({ route, navigation }) {
                     <View style={styles.top}>
                         <Offerings
                             personid={person.uid}
-                            items={recieveeritems}
+                            items={recieveritems}
                             setitems={setrecieveritems}
                             navigation={navigation}
                         ></Offerings>
@@ -81,7 +81,7 @@ export function Trade({ route, navigation }) {
                         <Offerings
                             personid={auth.currentUser.uid}
                             items={senderitems}
-                            setitmes={setrecieveritems}
+                            setitems={setsenderitems}
                             navigation={navigation}
                         ></Offerings>
                     </View>

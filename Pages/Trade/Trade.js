@@ -14,6 +14,8 @@ export function Trade({ route, navigation }) {
     const [recieveritems, setrecieveritems] = useState([]);
     const { person } = route.params;
 
+    function handleTrade() {}
+
     return (
         <>
             <SafeAreaView style={[global.creme, { flex: 1 }]}>
@@ -63,7 +65,9 @@ export function Trade({ route, navigation }) {
                             >
                                 <Submitbutton
                                     name="Propose Offer"
-                                    onpress={() => {}}
+                                    onpress={() => {
+                                        handleTrade;
+                                    }}
                                 ></Submitbutton>
                             </View>
                             <View

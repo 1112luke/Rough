@@ -4,14 +4,14 @@ import { Peoplenav } from "./Components/Peoplenav";
 import { Createlisting } from "./Pages/Createlisting/Createlisting";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Signup } from "./Pages/Login/Signup";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import { Signin } from "./Pages/Login/Signin";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./Components/config/firebase";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./Components/config/firebase";
 import * as SplashScreen from "expo-splash-screen";
 
@@ -24,21 +24,35 @@ const Tab = createBottomTabNavigator();
 export default function App() {
     const [user, setuser] = useState(auth.currentUser);
 
+    /* this is VERYVERY NOT GOOD TO DO EVERYTIME. fix this by placing in singup form after email verification is done or get better logic to only run if  */
     //listentoauthchange
     onAuthStateChanged(auth, (newuser) => {
-        setuser(newuser);
+        if (newuser != null) {
+            const newuserref = doc(db, `users/`, newuser.uid);
+            const data = {
+                uid: newuser.uid,
+                email: newuser.email,
+            };
+            getDoc(newuserref).then((snapshot) => {
+                if (!snapshot.exists()) {
+                    setDoc(newuserref, data).then(() => {
+                        setuser(newuser);
+                    });
+                } else {
+                    setuser(newuser);
+                }
+            });
+        } else {
+            setuser(newuser);
+        }
     });
 
-    /* this is VERYVERY NOT GOOD TO DO EVERYTIME. fix this by placing in singup form after email verification is done or get better logic to only run if  */
-    // add user data document
-    if (user != null) {
-        const listingref = doc(db, `users/`, auth.currentUser.uid);
-        const data = {
-            uid: auth.currentUser.uid,
-            email: auth.currentUser.email,
-        };
-        updateDoc(listingref, data);
-    }
+    //used to persist user if still logged in -- subject to much change, only testing currently **NOT WORKING**
+    useEffect(() => {
+        if (auth.currentUser) {
+            setuser(auth.currentUser);
+        }
+    }, []);
 
     //handle fonts
     const [fontsLoaded] = useFonts({

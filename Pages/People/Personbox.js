@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { useState } from "react";
 import { Submitbutton } from "../../Components/Submitbutton";
 import { updateDoc, arrayUnion, arrayRemove, doc } from "firebase/firestore";
 import { db } from "../../Components/config/firebase";
@@ -6,6 +7,11 @@ import { auth } from "../../Components/config/firebase";
 import global from "../../style";
 
 export function Personbox({ person, navigation }) {
+    //implement friend loading for add friend button functionality
+    //const [friendloading, setfriendloading] = useState();
+
+    const [requestsent, setrequestsent] = useState(requestSent());
+
     async function handleSendFriendRequest() {
         //edit other person document
         const personref = doc(db, "users", person.uid);
@@ -20,6 +26,8 @@ export function Personbox({ person, navigation }) {
         await updateDoc(ownref, {
             "friendrequests.sent": arrayUnion(person.uid),
         });
+
+        setrequestsent(requestSent());
     }
 
     async function handleAcceptFriendRequest() {
@@ -61,7 +69,6 @@ export function Personbox({ person, navigation }) {
                     ) {
                         return true;
                     }
-                    return false;
                 }
             }
             return false;
@@ -135,9 +142,7 @@ export function Personbox({ person, navigation }) {
                         ) : (
                             <Submitbutton
                                 name={
-                                    requestSent()
-                                        ? "Request Sent!"
-                                        : "Add Friend"
+                                    requestsent ? "Request Sent!" : "Add Friend"
                                 }
                                 onpress={handleSendFriendRequest}
                             ></Submitbutton>

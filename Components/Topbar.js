@@ -7,6 +7,7 @@ import { auth } from "./config/firebase.js";
 export function Topbar({ navigation }) {
     function handleBack() {
         auth.signOut();
+        console.log("out");
     }
 
     return (

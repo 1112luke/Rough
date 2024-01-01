@@ -4,12 +4,16 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 import emitter from "../../Components/config/emitter.js";
 
-export function Listingbox({ listing, goToPage, mode }) {
+export function Listingbox({ listing, goToPage, mode, height, width }) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
     const [selected, setselected] = useState(false);
     const [pressed, setpressed] = useState(false);
     const storage = getStorage();
+
+    if (height == null) {
+        var height = 200;
+    }
 
     async function getImage() {
         setimgloading(true);
@@ -26,7 +30,9 @@ export function Listingbox({ listing, goToPage, mode }) {
     }, [listing]);
 
     function emitSelected(listing) {
-        emitter.emit("ListingSelected", listing);
+        const data = { listing: listing, set: selected };
+
+        emitter.emit("ListingSelected", data);
     }
 
     return (
@@ -43,6 +49,7 @@ export function Listingbox({ listing, goToPage, mode }) {
                             emitSelected(listing);
                             console.log("selected");
                         } else if (selected) {
+                            emitSelected(listing);
                             console.log("notselected");
                         }
                         setselected(!selected);

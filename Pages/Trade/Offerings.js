@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, ScrollView } from "react-native";
 import { auth } from "../../Components/config/firebase";
 import { Submitbutton } from "../../Components/Submitbutton";
 import emitter from "../../Components/config/emitter";
@@ -14,16 +14,35 @@ export function Offerings({ personid, items, setitems, navigation }) {
         );
 
         //handle getting selected items from each listing box
-        emitter.on("ListingSelected", (listing) => {
-            var newitems = [...items, listing];
-            setitems(newitems);
-            console.log("items:", items);
+        emitter.on("ListingSelected", ({ listing, set }) => {
+            //check if listing owner is person
+            if (listing.owner == personid) {
+                if (set == false) {
+                    //add item
+                    setitems((prevState) => [...prevState, listing]);
+                } else {
+                    //remove item
+                    setitems((prevState) =>
+                        prevState.filter((val) => {
+                            if (val.created != listing.created) {
+                                return val;
+                            }
+                        })
+                    );
+                }
+            }
         });
     }, []);
 
+    useEffect(() => {
+        items.forEach((item) => {
+            console.log(item.name);
+        });
+    }, [items]);
+
     return (
         <>
-            <Pressable
+            <View
                 style={[
                     global.borders,
                     global.bluefill,
@@ -31,16 +50,45 @@ export function Offerings({ personid, items, setitems, navigation }) {
                     styles.container,
                 ]}
             >
-                <View style={styles.top}>
-                    <Text
-                        style={[
-                            global.font,
-                            global.bluefont,
-                            { shadowRadius: 0, fontSize: 40 },
-                        ]}
-                    >
-                        {innertext}
-                    </Text>
+                <View style={[styles.top]}>
+                    {items.length == 0 ? (
+                        <Text
+                            style={[
+                                global.font,
+                                global.bluefont,
+                                { shadowRadius: 0, fontSize: 40 },
+                            ]}
+                        >
+                            {innertext}
+                        </Text>
+                    ) : (
+                        <ScrollView
+                            style={[
+                                {
+                                    width: "100%",
+                                    backgroundColor: "red",
+                                    flex: 1,
+                                },
+                            ]}
+                            horizontal={true}
+                        >
+                            {items.map((item, index) => {
+                                return (
+                                    <View
+                                        key={index}
+                                        style={{
+                                            borderWidth: 2,
+                                            width: 100,
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Text>{item.name}</Text>
+                                    </View>
+                                );
+                            })}
+                        </ScrollView>
+                    )}
                 </View>
                 <View style={styles.bottom}>
                     <View style={styles.left}>
@@ -50,6 +98,9 @@ export function Offerings({ personid, items, setitems, navigation }) {
                             marginHorizontal={0}
                             fontSize={20}
                             onpress={() => {
+                                //prevent bug when switching between pages
+                                setitems([]);
+                                //navigate
                                 navigation.navigate("Selectioncloset", {
                                     personid: personid,
                                 });
@@ -66,7 +117,7 @@ export function Offerings({ personid, items, setitems, navigation }) {
                         ></Submitbutton>
                     </View>
                 </View>
-            </Pressable>
+            </View>
         </>
     );
 }

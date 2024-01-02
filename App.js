@@ -14,6 +14,7 @@ import { auth } from "./Components/config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./Components/config/firebase";
 import * as SplashScreen from "expo-splash-screen";
+import { Pendingtrades } from "./Pages/Pendingtrades/Pendingtrades";
 
 const Stack = createNativeStackNavigator();
 
@@ -113,6 +114,10 @@ export default function App() {
                             component={Createlisting}
                         />
                         <Tab.Screen name="Peoplenav" component={Peoplenav} />
+                        <Tab.Screen
+                            name="Pendingtrades"
+                            component={Pendingtrades}
+                        />
                     </Tab.Navigator>
                 )}
             </NavigationContainer>

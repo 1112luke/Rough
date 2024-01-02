@@ -7,14 +7,34 @@ import { auth } from "../../Components/config/firebase";
 import global from "../../style";
 import { Offerings } from "./Offerings";
 import { Submitbutton } from "../../Components/Submitbutton";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../Components/config/firebase";
 
 export function Trade({ route, navigation }) {
     const tabBarHeight = useBottomTabBarHeight();
     const [senderitems, setsenderitems] = useState([]);
     const [recieveritems, setrecieveritems] = useState([]);
+    const [tradeLoading, setTradeLoading] = useState([false]);
     const { person } = route.params;
 
-    function handleTrade() {}
+    async function handleTrade() {
+        setTradeLoading(true);
+
+        const traderef = collection(db, "trades");
+        const data = {
+            sender: auth.currentUser.uid,
+            reciever: person.uid,
+            senderitems: senderitems,
+            recieveritems: recieveritems,
+            status: "pending",
+            created: serverTimestamp(),
+        };
+        await addDoc(traderef, data);
+        setsenderitems([]);
+        setrecieveritems([]);
+
+        setTradeLoading(false);
+    }
 
     return (
         <>
@@ -63,12 +83,13 @@ export function Trade({ route, navigation }) {
                                     alignItems: "center",
                                 }}
                             >
-                                <Submitbutton
-                                    name="Propose Offer"
-                                    onpress={() => {
-                                        handleTrade;
-                                    }}
-                                ></Submitbutton>
+                                {senderitems.length > 0 &&
+                                    recieveritems.length > 0 && (
+                                        <Submitbutton
+                                            name="Propose Offer"
+                                            onpress={handleTrade}
+                                        ></Submitbutton>
+                                    )}
                             </View>
                             <View
                                 style={{

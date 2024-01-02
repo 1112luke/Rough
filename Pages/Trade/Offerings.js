@@ -4,9 +4,14 @@ import { auth } from "../../Components/config/firebase";
 import { Submitbutton } from "../../Components/Submitbutton";
 import emitter from "../../Components/config/emitter";
 import global from "../../style";
+import { Listingbox } from "../Home/Listingbox";
 
 export function Offerings({ personid, items, setitems, navigation }) {
     const [innertext, setinnertext] = useState("");
+
+    function goToPage(listing, img) {
+        navigation.navigate("Listingpage", { listing: listing, image: img });
+    }
 
     useEffect(() => {
         setinnertext(
@@ -64,27 +69,27 @@ export function Offerings({ personid, items, setitems, navigation }) {
                     ) : (
                         <ScrollView
                             style={[
+                                global.creme,
                                 {
                                     width: "100%",
-                                    backgroundColor: "red",
                                     flex: 1,
+                                    borderRadius: 5,
+                                    paddingHorizontal: 10,
+                                    paddingBottom: 20,
                                 },
                             ]}
                             horizontal={true}
                         >
                             {items.map((item, index) => {
                                 return (
-                                    <View
+                                    <Listingbox
                                         key={index}
-                                        style={{
-                                            borderWidth: 2,
-                                            width: 100,
-                                            justifyContent: "center",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Text>{item.name}</Text>
-                                    </View>
+                                        listing={item}
+                                        goToPage={goToPage}
+                                        mode="info"
+                                        height="100%"
+                                        width={70}
+                                    ></Listingbox>
                                 );
                             })}
                         </ScrollView>

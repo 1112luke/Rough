@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { People } from "../Pages/People/People";
 import { Trade } from "../Pages/Trade/Trade";
 import { Selectioncloset } from "../Pages/Trade/Selectioncloset";
+import { Listingpage } from "../Pages/Listingpage/Listingpage";
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ export function Peoplenav() {
                 <Stack.Screen
                     name="Selectioncloset"
                     component={Selectioncloset}
+                    options={{ gestureResponseDistance: 200 }}
+                />
+                <Stack.Screen
+                    name="Listingpage"
+                    component={Listingpage}
                     options={{ gestureResponseDistance: 200 }}
                 />
             </Stack.Navigator>

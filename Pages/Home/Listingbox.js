@@ -4,12 +4,21 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import global from "../../style.js";
 import emitter from "../../Components/config/emitter.js";
 
-export function Listingbox({ listing, goToPage, mode, height, width }) {
+export function Listingbox({
+    listing,
+    goToPage,
+    mode,
+    height,
+    width,
+    imgScale,
+}) {
     const [img, setimg] = useState(null);
     const [imgloading, setimgloading] = useState(true);
     const [selected, setselected] = useState(false);
     const [pressed, setpressed] = useState(false);
     const storage = getStorage();
+
+    //mode is info or selection
 
     if (height == null) {
         var height = 200;
@@ -72,6 +81,8 @@ export function Listingbox({ listing, goToPage, mode, height, width }) {
                         styles.container,
                         pressed && styles.pressed,
                         selected && styles.selected,
+                        { height: height },
+                        width && { width: width },
                     ]}
                 >
                     <View
@@ -124,7 +135,6 @@ const styles = StyleSheet.create({
         margin: 5,
         borderWidth: 2,
         borderRadius: 5,
-        height: 200,
         shadowColor: "black",
         shadowOffset: { width: -3, height: 4 },
         shadowOpacity: 0.4,
@@ -141,7 +151,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     image: {
-        width: 180,
+        width: 200,
+        height: 300,
+        resizeMode: "cover",
         height: "100%",
     },
     pressed: {

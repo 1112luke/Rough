@@ -6,7 +6,7 @@ export function Goodbutton(props) {
     <>
       <Pressable onPress={props.onpress} style={styles.button}>
         <Text style={{ padding: 10, textAlign: "center", color: "lightgray" }}>
-          Sign In
+          {props.text == null ? "Sign In" : props.text}
         </Text>
       </Pressable>
     </>

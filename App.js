@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { Homenav } from "./Components/Homenav";
 import { Peoplenav } from "./Components/Peoplenav";
-import { Createlisting } from "./Pages/Createlisting/Createlisting";
+import { Listingnav } from "./Components/Listingnav";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Signup } from "./Pages/Login/Signup";
 import { useCallback, useState, useEffect } from "react";
@@ -110,8 +110,8 @@ export default function App() {
                     >
                         <Tab.Screen name="Homenav" component={Homenav} />
                         <Tab.Screen
-                            name="Createlisting"
-                            component={Createlisting}
+                            name="Listingnav"
+                            component={Listingnav}
                         />
                         <Tab.Screen name="Peoplenav" component={Peoplenav} />
                         <Tab.Screen

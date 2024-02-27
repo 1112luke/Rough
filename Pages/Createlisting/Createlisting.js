@@ -10,8 +10,9 @@ import uuid from "react-native-uuid";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 import global from "../../style";
+import { Goodbutton } from "../../Components/Goodbutton";
 
-export function Createlisting() {
+export function Createlisting({navigation}) {
     const tabBarHeight = useBottomTabBarHeight();
     const [name, setname] = useState("");
     const [description, setdescription] = useState("");
@@ -21,7 +22,7 @@ export function Createlisting() {
     const [imgloading, setimgloading] = useState(true);
     const [submitting, setsubmitting] = useState(false);
 
-    async function handleSubmit() {
+    async function handleSubmit(navigation) {
         setsubmitting(true);
 
         var imgid = uuid.v4();
@@ -82,6 +83,10 @@ export function Createlisting() {
                         ></Image>
                     )}
                 </View>
+                <View style = {{width: "100%", justifyContent: "center", alignItems: "center",}}>
+                    <Goodbutton onpress = {() => navigation.navigate("Camerapage")} text = "Take photo"></Goodbutton>
+                </View>
+                
                 <View
                     style={[styles.formwrapper, { marginBottom: tabBarHeight }]}
                 >

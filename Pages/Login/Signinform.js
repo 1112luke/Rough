@@ -19,8 +19,8 @@ export function Signinform(props) {
 
     async function handleSignIn() {
         //setusername for testing
-        //setid("lukescholler@gmail.com");
-        //setpass("1122Greeny..");
+        setid("lukescholler@gmail.com");
+        setpass("1122Greeny..");
 
         //error handling
         if (pass == "" && id == "") {

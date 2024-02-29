@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { Createlistingform } from "./Createlistingform";
 import { db } from "../../Components/config/firebase";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, setDoc } from "firebase/firestore";
 import { auth } from "../../Components/config/firebase";
 import uuid from "react-native-uuid";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
@@ -19,13 +19,13 @@ export function Createlisting({navigation}) {
     const [size, setsize] = useState("");
     const [price, setprice] = useState("");
     const [img, setimg] = useState(null);
-    const [imgloading, setimgloading] = useState(true);
     const [submitting, setsubmitting] = useState(false);
 
     async function handleSubmit(navigation) {
         setsubmitting(true);
 
         var imgid = uuid.v4();
+        var listingid = uuid.v4();
 
         //push image
         const storage = getStorage();
@@ -33,7 +33,7 @@ export function Createlisting({navigation}) {
         await uploadBytes(storageRef, img);
 
         //push data
-        const listingref = collection(db, "listings");
+        const listingref = doc(db, "listings", `${listingid}`);
         const data = {
             name: name,
             description: description,
@@ -41,9 +41,10 @@ export function Createlisting({navigation}) {
             price: price,
             image: imgid,
             owner: auth.currentUser.uid,
+            id: listingid,
             created: serverTimestamp(),
         };
-        await addDoc(listingref, data);
+        await setDoc(listingref, data);
 
         //clear inputs
         setname("");
@@ -51,31 +52,19 @@ export function Createlisting({navigation}) {
         setsize("");
         setprice("");
 
-        //getnewimageandstopsubmitting
-        await getimage();
+        //clear image
+        setimg(null);
+
+        //stop submitting;
         setsubmitting(false);
     }
-
-    async function getimage() {
-        setimgloading(true);
-        var res = await fetch("https://picsum.photos/200/300", {
-            cache: "no-cache",
-        });
-        var image = await res.blob();
-        setimg(image);
-        setimgloading(false);
-    }
-
-    useEffect(() => {
-        getimage();
-    }, []);
 
     return (
         <>
             <SafeAreaView style={[styles.container, global.creme]}>
                 <View style={styles.imagebox}>
-                    {imgloading ? (
-                        <Text>LOADING</Text>
+                    {(img == null) ? (
+                        <Text>Add Image</Text>
                     ) : (
                         <Image
                             style={styles.image}
@@ -84,7 +73,7 @@ export function Createlisting({navigation}) {
                     )}
                 </View>
                 <View style = {{width: "100%", justifyContent: "center", alignItems: "center",}}>
-                    <Goodbutton onpress = {() => navigation.navigate("Camerapage")} text = "Take photo"></Goodbutton>
+                    <Goodbutton onpress = {() => navigation.navigate("Camerapage", {setimg: setimg,})} text = "Take photo"></Goodbutton>
                 </View>
                 
                 <View

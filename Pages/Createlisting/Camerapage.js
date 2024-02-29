@@ -3,7 +3,9 @@ import { View, SafeAreaView, StyleSheet, Text, Image } from "react-native";
 import { useRef, useState } from "react";
 import { Goodbutton } from "../../Components/Goodbutton";
 
-export function Camerapage() {
+export function Camerapage({route, navigation}) {
+    const { setimg } = route.params;
+
     const { hasPermission, requestPermission } = useCameraPermission();
     const [image, setImage] = useState(null);
     const camera = useRef(null);
@@ -11,8 +13,11 @@ export function Camerapage() {
     const device = useCameraDevice("back");
 
     async function handleTakePhoto(){
-        const photo = await camera.current.takePhoto();
-        setImage(photo);
+        const file = await camera.current.takePhoto();
+        const result = await fetch(`file://${file.path}`)
+        const data = await result.blob();
+        setimg(data);
+        navigation.navigate("Createlisting");
     }
 
     if (device == null) return <NoCameraDeviceError />;

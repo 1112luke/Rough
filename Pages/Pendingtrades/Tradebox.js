@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../Components/config/firebase";
 import global from "../../style";
 
-export function Tradebox({ trade, status }) {
+export function Tradebox({ trade, status, navigation }) {
     const [personloading, setpersonloading] = useState(true);
     const [person, setperson] = useState();
     //status is sent or recieved
@@ -24,7 +24,7 @@ export function Tradebox({ trade, status }) {
     }, []);
 
     return (
-        <Pressable style={[styles.container]}>
+        <Pressable style={[styles.container]} onPress={() => navigation.navigate("Trade", {mode: "view", trade: trade})}>
             <View style={[styles.left]}>
                 <Text style={[global.font, { fontSize: 20 }]}>
                     {personloading

@@ -8,7 +8,7 @@ import { db } from "../../Components/config/firebase";
 import { Tradebox } from "./Tradebox";
 import { auth } from "../../Components/config/firebase";
 
-export function Pendingtrades() {
+export function Pendingtrades({navigation}) {
     const [page, setpage] = useState("sent");
     const [senttrades, setsenttrades] = useState([]);
     const [recievedtrades, setrecievedtrades] = useState([]);
@@ -75,6 +75,7 @@ export function Pendingtrades() {
                                     key={i}
                                     trade={trade}
                                     status="recieved"
+                                    navigation={navigation}
                                 ></Tradebox>
                             );
                         })}

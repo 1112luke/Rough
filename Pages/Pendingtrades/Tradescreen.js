@@ -1,18 +1,22 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native"
 import { Topbar } from "../../Components/Topbar";
+import global from "../../style"
+import { BottomTabBar } from "@react-navigation/bottom-tabs";
+import { Proposal } from "./Proposal";
+import { auth } from "../../Components/config/firebase";
 
 export function Tradescreen({route}){
 
-    const {trade, navigation} = route.params;
+    const {trade, status, navigation} = route.params;
 
     return(
         <>
-            <SafeAreaView>
+            <SafeAreaView style = {[global.creme, {flex: 1, justifyContent:"center", alignItems: "center",}]}>
                 <Topbar></Topbar>
-                <View style = {styles.container}>
-                    <View style = {styles.header}><Text>hi</Text></View>
-                    <View style = {styles. bottom}><Text>hi</Text></View>
-                </View>
+                        <Proposal trade = {trade} incoming = {(status == "sent")} navigation = {navigation}></Proposal>
+                        <View style = {{flex: 0.1}}></View>
+                        <Proposal trade = {trade} incoming = {(status != "sent")} navigation = {navigation}></Proposal>
+                        <View style = {{flex:1}}></View>
             </SafeAreaView>
         </>
     )
@@ -20,15 +24,14 @@ export function Tradescreen({route}){
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-    },
     header:{
         backgroundColor: "blue",
         flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
     },
     bottom:{
-        flex:5,
+        flex:1,
         backgroundColor: "red",
-    }
+    },
 })

@@ -56,23 +56,13 @@ export function Trade({ route, navigation }) {
                 <View style={[styles.tradebox, { marginBottom: tabBarHeight }]}>
                     <View style={{ flex: 0.1 }}></View>
                     <View style={styles.top}>
-                        {/*potentially undo this mode business and make new ui for viewing trades vs proposing them*/}
-                        {(mode == "propose") ? 
                         <Offerings
                             mode = "propose"
                             personid={person.uid}
                             items={recieveritems}
                             setitems={setrecieveritems}
                             navigation={navigation}
-                        ></Offerings> : 
-                        <Offerings
-                            mode = "view"
-                            personid={trade.sender}
-                            items={trade.senderitems}
-                            setitems={setrecieveritems}
-                            navigation={navigation}
-                        ></Offerings>}
-                        
+                        ></Offerings>
                     </View>
                     <View style={styles.middle}>
                         <View style={{ flex: 1, flexDirection: "row" }}>
@@ -115,21 +105,13 @@ export function Trade({ route, navigation }) {
                         </View>
                     </View>
                     <View style={styles.bottom}>
-                        {(mode == "propose") ? 
                          <Offerings
                          mode = "propose"
                          personid={auth.currentUser.uid}
                          items={senderitems}
                          setitems={setsenderitems}
                          navigation={navigation}
-                     ></Offerings>: 
-                        <Offerings
-                            mode = "view"
-                            personid={trade.sender}
-                            items={trade.senderitems}
-                            setitems={setrecieveritems}
-                            navigation={navigation}
-                        ></Offerings>}
+                     ></Offerings>
                     </View>
                     <View style={{ flex: 0.1 }}></View>
                 </View>

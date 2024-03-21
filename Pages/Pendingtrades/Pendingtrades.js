@@ -33,6 +33,7 @@ export function Pendingtrades({navigation}) {
             setsenttrades(newtrades);
         });
 
+        //get recieved trades
         const recievedquery = query(
             tradesref,
             where("reciever", "==", auth.currentUser.uid)
@@ -65,6 +66,7 @@ export function Pendingtrades({navigation}) {
                                     key={i}
                                     trade={trade}
                                     status="sent"
+                                    navigation = {navigation}
                                 ></Tradebox>
                             );
                         })}

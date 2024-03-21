@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Pendingtrades } from "../Pages/Pendingtrades/Pendingtrades";
-import { Trade } from "../Pages/Trade/Trade";
+import { Tradescreen } from "../Pages/Pendingtrades/Tradescreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,8 +17,8 @@ export function Tradenav() {
                     options={{ animation: "none" }}
                 />
                 <Stack.Screen
-                    name="Trade"
-                    component={Trade}
+                    name="Tradescreen"
+                    component={Tradescreen}
                     options={{ animation: "none" }}
                 />
             </Stack.Navigator>

@@ -24,7 +24,7 @@ export function Tradebox({ trade, status, navigation }) {
     }, []);
 
     return (
-        <Pressable style={[styles.container]} onPress={() => navigation.navigate("Trade", {mode: "view", trade: trade})}>
+        <Pressable style={[styles.container]} onPress={() => navigation.navigate("Tradescreen", {trade: trade, status: status})}>
             <View style={[styles.left]}>
                 <Text style={[global.font, { fontSize: 20 }]}>
                     {personloading
